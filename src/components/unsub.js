@@ -1,9 +1,9 @@
 
-import {Link} from 'react-router-dom'
+import {Link, Redirect,UseHistory} from 'react-router-dom'
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { render } from '@testing-library/react';
+
 
 export default class CreateUser extends Component {
   constructor(props) {
@@ -12,59 +12,72 @@ export default class CreateUser extends Component {
     
     this.onSubmit = this.onSubmit.bind(this);
     //this.deleteEmail = this.deleteEmail.bind(this);
+    this.onChangeId = this.onChangeId.bind(this);
 
     this.state = {
-      email: '',
+      id:'',
+    
       emails: []
-    }
+    };
   }
     
   componentDidMount() {
     axios.get('http://localhost:4000/users/')
       .then(response => {
         this.setState({ emails: response.data })
-        console.log(this.state.emails)
-      })
+        
+       
+      })      
       .catch((error) => {
         console.log(error);
       })
   }
-
+  onChangeId(e) {
+    this.setState({
+      id:e.target.value
+    })
+  }
 
 
   onSubmit(e) {
     e.preventDefault();
+    console.log(this.state.emails);
+    console.log(this.state.id);
     
 
    
-    axios.delete('http://localhost:4000/users/'+e.target.value)
+    axios.delete('http://localhost:4000/users/'+this.state.id)
       .then(res => console.log(res.data));
 
     this.setState({
-      emails: this.state.emails.filter(user => user._id!==e.target.value)
-      
+      emails: this.state.emails.filter(user => user.email!==this.state.id),
+      id: ''
     })
-    console.log.bind(this.state.emails);
+    this.props.history.push("/success");
+   
+    
   }
 
  
-render(){
+  render(){
    
     return (
       
     <div>
-        <form className='add-form' onSubmit={this.onSubmit}>
+        <form className='add-form' onSubmit={this.onSubmit} > 
         <div className='form-control'>
           
           <input
             type='text'
             placeholder='Please enter your email'
+            value={this.state.id}
+            onChange={this.onChangeId}
             
             
             
           />
         </div>
-        <input type='submit' value='unsubscribe' className='btn btn-block' />
+        <input type='submit' value='unsubscribe' className='btn btn-block'/> 
         </form>
         <Link to ='/'> Go Back</Link>
         </div>

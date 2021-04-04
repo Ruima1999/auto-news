@@ -10,6 +10,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Button from './components/Button';
 import Button_unsub from './components/button_unsub'
 import unsub from './components/unsub'
+import success from './components/UnsubSuccess'
 const App=() => {
   const [showAddTask,setShowAddTask] =useState(true)
   const [tasks,setTasks] = useState([])
@@ -90,6 +91,7 @@ const App=() => {
         />
          <Route path='/unsub' component={unsub} />
          <Route path='/about' component={About} />
+         <Route path ='/success/' component ={success} />
         <Footer />
       </div>
     </Router>
