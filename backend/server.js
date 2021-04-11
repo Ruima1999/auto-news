@@ -26,10 +26,10 @@ const uri = "mongodb+srv://auto-news-summary:auto-news-summary@cluster0.jgtrr.mo
 MongoClient.connect(uri, function(err,db) {
   if (err) throw err;
   var dbo = db.db("test");
-  dbo.collection("users").find({},{ projection: { _id: 0,username:0,createdAt:0, updatedAt:0,__v:0 } }).toArray(function(err, result) {
+  dbo.collection("users").find({}).toArray(function(err, result) {
     if (err) throw err;
     
-    fs.writeFileSync("email.txt",JSON.stringify(result) );
+    fs.writeFileSync("../email1.txt",JSON.stringify(result) );
     
     
   });

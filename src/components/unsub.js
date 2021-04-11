@@ -3,7 +3,7 @@ import {Link, Redirect,UseHistory} from 'react-router-dom'
 
 import React, { Component } from 'react';
 import axios from 'axios';
-
+const fs = require('fs');
 
 export default class CreateUser extends Component {
   constructor(props) {
@@ -48,6 +48,10 @@ export default class CreateUser extends Component {
    
     axios.delete('http://localhost:4000/users/'+this.state.id)
       .then(res => console.log(res.data));
+    axios.get('http:localhost:4000/users/');
+  
+
+    
 
     this.setState({
       emails: this.state.emails.filter(user => user.email!==this.state.id),
